@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-01-22T18:16:06.992468900Z</date>
+  <millis>1642875366992</millis>
+  <nanos>468900</nanos>
+  <sequence>0</sequence>
+  <logger>com.project.lms</logger>
+  <level>INFO</level>
+  <class>com.project.lms.LibraryManagementSystem</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>severe message</message>
+</record>
+</log>

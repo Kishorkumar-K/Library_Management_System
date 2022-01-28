@@ -5,10 +5,7 @@ package com.project.lms;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-/**
- * @author kisho
- *
- */
+
 public class BookReturn {
 
 	public void start() {
@@ -17,14 +14,14 @@ public class BookReturn {
 		Book book = new Book();
 		try {
 			
-			System.out.println("Enter Member ID : ");
+			System.out.print("\n\t\tEnter Member ID : ");
 			book.setMemberid(in.next());
 			
-			System.out.println("Enter number of books : ");
+			System.out.print("\n\t\tEnter number of books : ");
 			int count = in.nextInt();
 			
 			while(count>0) {
-				System.out.println("Enter Book ID : ");
+				System.out.print("\n\t\tEnter Book ID : ");
 				book.setBookid(in.next());
 				
 				MemberDbo memberdbo = new MemberDbImpl();

@@ -3,10 +3,7 @@
  */
 package com.project.lms;
 
-/**
- * @author kisho
- *
- */
+
 public class MemberDelete {
 
 	public String deleteMember(String memberId) {
@@ -16,7 +13,7 @@ public class MemberDelete {
 		try {
 			Member member = memberdbo.viewMember(memberId);
 			if(member==null) {
-				result = "Member Details not Found";
+				result = "\t\t\t\t!!!!! Member Details not Found !!!!!";
 			}
 			else {
 				result = memberdbo.deleteMember(memberId);

@@ -5,10 +5,7 @@ package com.project.lms;
 
 import java.sql.SQLException;
 
-/**
- * @author kisho
- *
- */
+
 public interface BookDbo {
 
 	public int checkDueDate(String memberid, String bookId) throws SQLException;

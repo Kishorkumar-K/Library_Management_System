@@ -6,10 +6,7 @@ package com.project.lms;
 import java.sql.PreparedStatement;
 import java.util.Scanner;
 
-/**
- * @author kisho
- *
- */
+
 public class BookIssue {
 
 	
@@ -19,18 +16,20 @@ public class BookIssue {
 		 
 		int count;
 		Scanner in = new Scanner(System.in);
-		conn con = new conn();
+		
 		Book book = new Book();						//wrapper class for varaiables
 		
-		System.out.println("Issue Books");
-		System.out.println("Enter member ID : ");
+		System.out.println("\n\n\t\t\t\tIssue Books");
+		System.out.println("\t\t\t\t-----------\n\n");
+		System.out.print("\t\tEnter member ID : ");
 		book.setMemberid(in.next());
-		System.out.println("Enter count of books : ");
+		System.out.print("\n\t\tEnter count of books : ");
 		count = in.nextInt();
 		
 		try {
+			conn con = new conn();
 			for(int i=0;i<count;i++) {
-				System.out.println("Enter Book ID : ");
+				System.out.print("\n\t\tEnter Book ID : ");
 				book.setBookid(in.next());
 				
 				String sql = "select * from book where book_id = ?";			//used to get the available count of that particular book
@@ -88,13 +87,14 @@ public class BookIssue {
 						//st2.setDate(7,""); no need to insert date return now bcoz it is only updated after returning the book
 						
 						st2.executeUpdate();
-						System.out.println("Data Stored in bookledger");
+						System.out.println("\t\t\t\tData Stored in bookledger");
 					}
 					else {
 						System.out.println("Stock not available...check the code man");
 					}
 				}
 			}
+			con.c.close();
 		}
 		catch(Exception e) {
 			e.printStackTrace();

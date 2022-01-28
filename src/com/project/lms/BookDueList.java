@@ -5,13 +5,10 @@ package com.project.lms;
 
 
 import java.sql.PreparedStatement;
-/**
- * @author kisho
- *
- */
+
 public class BookDueList {
 
-	conn con = new conn();
+	
 	
 	public void start() {
 		System.out.println("\t\t\t\tBook Due list\n");
@@ -19,7 +16,7 @@ public class BookDueList {
 		System.out.println("Book ID\t   Member ID\tDate Issue\tTime Issue\tDate Due");
 		System.out.println("-------\t   ---------\t----------\t----------\t--------\n");
 		try {
-			
+			conn con = new conn();
 			sql = "select * from bookledger where date_due < ? and status = 'pending'";			//query to select all records whose due date is less than current date and status is pending
 			PreparedStatement st = con.c.prepareStatement(sql);
 			
@@ -49,6 +46,7 @@ public class BookDueList {
 			else {
 				System.out.println("Details not Obtained");
 			}
+			con.c.close();
 		}
 		catch(Exception e) {
 			e.printStackTrace();

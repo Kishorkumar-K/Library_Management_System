@@ -6,46 +6,44 @@ package com.project.lms;
 import java.sql.PreparedStatement;
 import java.util.Scanner;
 
-/**
- * @author kisho
- *
- */
+
 public class BookInfo {
 	Scanner in = new Scanner(System.in);
-	conn con = new conn();
+	
 	
 	public void start() {
 		
 		Book book = new Book();
 		
-		System.out.println("Book Info");
-		System.out.println("How do u want to search the book");
-		System.out.println("1) Book Title\n2) Book Author\n3) Book ID\n4)Book Title & Book Author\n5) Go Back to Dashboard");
-		System.out.print("\n\nEnter Your Choice : ");
+		System.out.println("\n\n\n\n\t\t\t\t\t\tBook Info");
+		System.out.println("\t\t\t\t\t\t---------\n\n");
+		System.out.println("\t\t\t\tSearch the Book by:\n");
+		System.out.println("\t\t\t\t1) Book Title\n\t\t\t\t2) Book Author\n\t\t\t\t3) Book ID\n\t\t\t\t4) Book Title & Book Author\n\t\t\t\t5) Go Back to Dashboard");
+		System.out.print("\n\n\t\tEnter Your Choice : ");
 		int choice = in.nextInt();
 		switch(choice) {
 		case 1:
-			System.out.print("Enter the Book Title :");
+			System.out.print("\n\t\t\t\tEnter the Book Title :");
 			book.setTitle(in.next());
 			search(book.getTitle(),1);
 			break;
 		
 		case 2:
-			System.out.println("Enter Author Name : ");
+			System.out.print("\n\t\t\t\tEnter Author Name : ");
 			book.setAuthor(in.next());
 			search(book.getAuthor(),2);
 			break;
 			
 		case 3:
-			System.out.println("Enter Book ID : ");
+			System.out.print("\n\t\t\t\tEnter Book ID : ");
 			book.setBookid(in.next());
 			search(book.getBookid(),3);
 			break;
 			
 		case 4:
-			System.out.println("Enter Author Name : ");
+			System.out.print("\n\t\t\t\tEnter Author Name : ");
 			book.setAuthor(in.next());
-			System.out.println("Enter Book Title : ");
+			System.out.print("\n\t\t\t\tEnter Book Title : ");
 			book.setTitle(in.next());
 			search(book.getTitle(),book.getAuthor());
 			break;
@@ -59,7 +57,7 @@ public class BookInfo {
 		String sql="";
 		search+='%';							//appends % symbol at the end to search the text starting with the value of search variable
 		try {
-			
+			conn con = new conn();
 			if(ch==1) {															//query to get info about book based on book title
 				sql = "select * from book where book_title like ?";
 			}
@@ -74,19 +72,19 @@ public class BookInfo {
 			
 			java.sql.ResultSet rs = st.executeQuery();
 			if(rs.next()) {
-				System.out.println("Book ID : "+rs.getString("book_id"));
-				System.out.println("Book Title : "+rs.getString("book_title"));
-				System.out.println("Book Author : "+rs.getString("book_author"));
-				System.out.println("Book Publication : "+rs.getString("book_publication"));
-				System.out.println("Book Row : "+rs.getString("book_row"));
-				System.out.println("Book Total Count : "+rs.getString("total_count"));
-				System.out.println("Book Available Count : "+rs.getString("available_count"));
+				System.out.println("\t\t\t\tBook ID : "+rs.getString("book_id"));
+				System.out.println("\t\t\t\tBook Title : "+rs.getString("book_title"));
+				System.out.println("\t\t\t\tBook Author : "+rs.getString("book_author"));
+				System.out.println("\t\t\t\tBook Publication : "+rs.getString("book_publication"));
+				System.out.println("\t\t\t\tBook Row : "+rs.getString("book_row"));
+				System.out.println("\t\t\t\tBook Total Count : "+rs.getString("total_count"));
+				System.out.println("\t\t\t\tBook Available Count : "+rs.getString("available_count"));
 			}
 			else {
-				System.out.println("No Such Thing Found!\n Try using different keywords or check for spellings");
+				System.out.println("\t\t\t\tNo Such Thing Found!\n\t\tTry using different keywords or check for spellings");
 				start();										//goes back to first of bookinfo page
 			}
-			
+			con.c.close();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -99,24 +97,26 @@ public class BookInfo {
 		title+='%';
 		author+='%';
 		try {
+			conn con = new conn();
 			String sql = "select * from book where book_title like ? and book_author like ?";
 			PreparedStatement st1 = con.c.prepareStatement(sql);
 			st1.setString(1, title);
 			st1.setString(2, author);
 			java.sql.ResultSet rs1 = st1.executeQuery();
 			if(rs1.next()) {
-				System.out.println("Book ID : "+rs1.getString("book_id"));
-				System.out.println("Book Title : "+rs1.getString("book_title"));
-				System.out.println("Book Author : "+rs1.getString("book_author"));
-				System.out.println("Book Publication : "+rs1.getString("book_publication"));
-				System.out.println("Book Row : "+rs1.getString("book_row"));
-				System.out.println("Book Total Count : "+rs1.getString("total_count"));
-				System.out.println("Book Available Count : "+rs1.getString("available_count"));
+				System.out.println("\t\t\t\tBook ID : "+rs1.getString("book_id"));
+				System.out.println("\t\t\t\tBook Title : "+rs1.getString("book_title"));
+				System.out.println("\t\t\t\tBook Author : "+rs1.getString("book_author"));
+				System.out.println("\t\t\t\tBook Publication : "+rs1.getString("book_publication"));
+				System.out.println("\t\t\t\tBook Row : "+rs1.getString("book_row"));
+				System.out.println("\t\t\t\tBook Total Count : "+rs1.getString("total_count"));
+				System.out.println("\t\t\t\tBook Available Count : "+rs1.getString("available_count"));
 			}
 			else {
-				System.out.println("No Such Thing Found!\n Try using different keywords or check for spellings");
+				System.out.println("\t\t\t\tNo Such Thing Found!\n\tTry using different keywords or check for spellings");
 				start();										//goes back to first of bookinfo page
 			}
+			con.c.close();
 		}
 		catch(Exception e) {
 			e.printStackTrace();

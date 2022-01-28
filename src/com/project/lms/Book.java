@@ -3,10 +3,7 @@
  */
 package com.project.lms;
 
-/**
- * @author kisho
- *
- */
+
 public class Book {
 
 	private String memberid;

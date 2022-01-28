@@ -5,10 +5,7 @@ package com.project.lms;
 
 import java.sql.*;
 
-/**
- * @author kisho
- *
- */
+
 public class conn {
 
 	Connection c;

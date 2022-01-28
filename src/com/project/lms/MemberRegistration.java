@@ -6,10 +6,7 @@ package com.project.lms;
 import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.UUID;
-/**
- * @author kisho
- *
- */
+
 public class MemberRegistration {
 
 	MemberDbo memberdbo = new MemberDbImpl();
@@ -21,27 +18,24 @@ public class MemberRegistration {
 			Scanner in = new Scanner(System.in);
 			Member member = new Member();
 			
-			System.out.println("Please Enter the Following Details");
+			System.out.println("\t\tPlease Enter the Following Details");
 			
-			System.out.println("Member Name : ");
+			System.out.println("\t\t\t\tMember Name : ");
 			member.setMemberName(in.nextLine());
 			
-			System.out.println("Member Address : ");
+			System.out.println("\t\t\t\tMember Address : ");
 			member.setAddress(in.nextLine());
 			
-			System.out.println("Member Contact : ");
+			System.out.println("\t\t\t\tMember Contact : ");
 			member.setMobileNum(in.nextLine());
 			
-			System.out.println("Member Proof Type : ");
+			System.out.println("\t\t\t\tMember Proof Type : ");
 			member.setProofType(in.nextLine());
 			
-			System.out.println("Member Proof ID : ");
+			System.out.println("\t\t\t\tMember Proof ID : ");
 			member.setProofId(in.nextLine());
 			
-			/*String memberId = UUID.randomUUID().toString();
-			Long l = Long.parseLong(memberId);
-			member.setMemberId(l);
-			*/
+			
 			result = memberdbo.addMember(member);
 		}
 		catch(SQLException e) {

@@ -6,19 +6,17 @@ package com.project.lms;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-/**
- * @author kisho
- *
- */
+
 public class MemberDbImpl implements MemberDbo{
 
-	conn con = new conn();
+	
 	@Override
 	public String addMember(Member member) throws SQLException{
 		String result = "";
 		
 		
 		try {
+			conn con = new conn();
 			String sql1 = "SELECT member_id FROM member ORDER BY member_id DESC LIMIT 1";			// to get last member id stored in table and increments its value for new one
 			PreparedStatement st1 = con.c.prepareStatement(sql1);
 			java.sql.ResultSet rs1 = st1.executeQuery();
@@ -44,11 +42,11 @@ public class MemberDbImpl implements MemberDbo{
 			
 			int ps = st.executeUpdate();
 			if(ps > 0 ) {
-				result = "Details Updated Successfully";
+				result = "\t\t\t\tDetails Updated Successfully";
 				System.out.println("Member ID : "+member.getMemberId());
 			}
 			else {
-				result = "Adding Member Failed";
+				result = "\t\t\t\tAdding Member Failed";
 			}
 			con.c.close();
 		}
@@ -64,6 +62,7 @@ public class MemberDbImpl implements MemberDbo{
 	public Member viewMember(String memberId){
 		Member member = null;
 		try {
+			conn con = new conn();
 			String sql2 = "SELECT * FROM member where member_id = ?";			// query to display the member details based on member id
 			
 			PreparedStatement st2 = con.c.prepareStatement(sql2);
@@ -91,17 +90,18 @@ public class MemberDbImpl implements MemberDbo{
 	@Override
 	public String deleteMember(String memberId) {
 		String result ="";
-		conn con = new conn();
+		
 		try {
+			conn con = new conn();
 			String sql3 ="DELETE FROM member WHERE member_id = ?;";
 			PreparedStatement st3 = con.c.prepareStatement(sql3);
 			st3.setString(1, memberId);
 			int check = st3.executeUpdate();
 			if(check>0) {
-				result = "Member Deleted Successfully";
+				result = "\t\t\t\t!!!!! Member Deleted Successfully !!!!!";
 			}
 			else {
-				result = "Member Details not Found";
+				result = "\t\t\t\t !!!!! Member Details not Found !!!!!";
 			}
 			con.c.close();
 		}
@@ -115,6 +115,7 @@ public class MemberDbImpl implements MemberDbo{
 	public int checkDueAmount(String memberid) {
 		
 		try {
+			conn con = new conn();
 			String sql4 = "Select * from member where member_id = ?";
 			PreparedStatement st = con.c.prepareStatement(sql4);
 			st.setString(1, memberid);
@@ -122,6 +123,7 @@ public class MemberDbImpl implements MemberDbo{
 			if(rs4.next()) {
 				if(rs4.getInt("due_amt")==0) {
 					System.out.println("\t\t\t\tNo Due Amount Found!");
+					con.c.close();
 					return 0;
 				}
 				else if(rs4.getInt("due_amt")>0){	
@@ -131,6 +133,7 @@ public class MemberDbImpl implements MemberDbo{
 			else {
 				System.out.println("No data Returned from Database");
 			}
+			con.c.close();
 		}
 		catch(Exception e ) {
 			e.printStackTrace();
@@ -143,17 +146,20 @@ public class MemberDbImpl implements MemberDbo{
 	public String updateDueAmount(String memberid, int dueamt) {
 		
 		String result = "";
-		conn con = new conn();
 		
 		try {
-			
+			conn con = new conn();
+			int predue = checkDueAmount(memberid);						//gets existing due amount of the member
+			dueamt = dueamt+predue;
 			String sql5 = "UPDATE member SET due_amt=? WHERE member_id = ?";			//query to update due amount in member table
 			PreparedStatement st5 = con.c.prepareStatement(sql5);
 			st5.setInt(1, dueamt);
 			st5.setString(2, memberid);
 			st5.executeUpdate();
-			result = "Due Amount Updated Successfully";
+			result = "\t\t\t\tDue Amount Updated Successfully";
+			con.c.close();
 			return result;
+			
 		}
 		catch(Exception e) {
 			e.printStackTrace();

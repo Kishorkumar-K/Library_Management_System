@@ -5,17 +5,15 @@ package com.project.lms;
 
 import java.util.Scanner;
 
-/**
- * @author kisho
- *
- */
+
 public class Dashboard {
 
 	public int start() {
 		Scanner in = new Scanner(System.in);
 		int choice;
 		
-		System.out.println("\t\t\t\t\tLibrary Management System\n\n");
+		System.out.println("\n\n\t\t\t\t\tMIT Library Management System");
+		System.out.println("\t\t\t\t\t-----------------------------\n\n");
 		System.out.println("\t\t\t\t1) Member\n");
 		System.out.println("\t\t\t\t2) Issue Books\n");
 		System.out.println("\t\t\t\t3) Return Books\n");
@@ -24,7 +22,7 @@ public class Dashboard {
 		System.out.println("\t\t\t\t6) Payment\n");
 		System.out.println("\t\t\t\t7) Logout\n\n");
 		
-		System.out.print("Enter your Choice : ");
+		System.out.print("\t\tEnter your Choice : ");
 		choice=in.nextInt();												//gets input choice from user
 		
 		switch(choice) {

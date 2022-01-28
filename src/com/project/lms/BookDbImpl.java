@@ -5,19 +5,16 @@ package com.project.lms;
 
 import java.sql.PreparedStatement;
 
-/**
- * @author kisho
- *
- */
+
 public class BookDbImpl implements BookDbo{
 
-	conn con = new conn();
+	
 	
 	
 	public int checkDueDate(String memberid, String bookid) {			//this method returns the count of days xtra after due date
 		
 		try {
-			
+			conn con = new conn();
 			String sql="select date_due - (select current_date::date) as difference from bookledger where (status = 'pending') and (member_id = ?) and (book_id = ?) limit 1; ";
 			PreparedStatement st = con.c.prepareStatement(sql);
 			st.setString(1, memberid);
@@ -30,6 +27,7 @@ public class BookDbImpl implements BookDbo{
 			else {
 				System.out.println("No values returned inside check due date method");
 			}
+			con.c.close();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -49,10 +47,10 @@ public class BookDbImpl implements BookDbo{
 	
 	public String updateStatus(String memberid, String bookid) {
 		String result="";
-		conn con = new conn();
+		
 		
 		try {
-			
+			conn con = new conn();
 			String sql1 = "UPDATE bookledger SET status = 'returned', date_return = ? WHERE (member_id = ?) and (book_id = ?)";			//query to update status, date_return in bookledger table
 			PreparedStatement st1 = con.c.prepareStatement(sql1);
 			/*
@@ -69,7 +67,8 @@ public class BookDbImpl implements BookDbo{
 			st1.setString(2, memberid);
 			st1.setString(3, bookid);
 			st1.executeUpdate();
-			result = "Book Status Updated Successfully";
+			result = "\t\t\t\tBook Status Updated Successfully";
+			con.c.close();
 			return result;
 		}
 		catch(Exception e) {
@@ -91,7 +90,7 @@ try {
 	/*
 	 * first get the availabe_count values from table and then increment it by one and then update its count
 	 */
-	
+	conn con = new conn();
 	String sql2 = "select * from book where book_id = ?";			//used to get the available count of that particular book
 	PreparedStatement st2 = con.c.prepareStatement(sql2);
 	st2.setString(1, bookid);
@@ -108,7 +107,8 @@ try {
 			st3.setInt(1, ava_count);
 			st3.setString(2, bookid);
 			st3.executeUpdate();
-			result = "Available Count in book table is Updated Successfully";
+			result = "\t\t\t\tAvailable Count in book table is Updated Successfully";
+			con.c.close();
 			return result;
 		}
 		else {
@@ -118,16 +118,17 @@ try {
 	else {
 		System.out.println("Available book count is not retuning from table..check the code");
 		}
+	con.c.close();
 	}
 	catch(Exception e) {
 		e.printStackTrace();
 		result = "Some problem with update due amount method";
 	}
-		
-		
-		
-		
-		
+				
 		return result;
 	}
+	
+	
+	
+	
 }

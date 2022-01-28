@@ -3,10 +3,7 @@
  */
 package com.project.lms;
 import java.sql.SQLException;
-/**
- * @author kisho
- *
- */
+
 public interface MemberDbo {
 
 	public String addMember(Member member) throws SQLException;

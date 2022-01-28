@@ -4,10 +4,7 @@
 package com.project.lms;
 
 
-/**
- * @author kisho
- *
- */
+
 public class LibraryManagementSystem {
 
 	/**
@@ -19,11 +16,20 @@ public class LibraryManagementSystem {
 		int ack =0;
 		int dsb =0;		
 		
+		
+		/*
+		 * 0- default
+		 * 1 - allowed
+		 * 2- successful not allowed
+		 * 3 - wrong credentils
+		 * 4 - login attempts exhausted
+		 */
+		
 		Login login = new Login();										//creating object for login class
 		//login.start();
 		
 		
-		System.out.println("                    Welcome to Library Management System\n\n\n");
+		System.out.println("                    Welcome to MIT Library Management System\n\n\n");
 		
 		while(ack != 1) {												//loops until logged in
 			if(ack==4||ack==2) {

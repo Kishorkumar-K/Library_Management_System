@@ -4,10 +4,7 @@
 package com.project.lms;
 
 import java.util.Scanner;
-/**
- * @author kisho
- *
- */
+
 public class Member {
 
 	private String memberName;
@@ -168,10 +165,11 @@ public class Member {
 	public void start() {
 		
 		Scanner in = new Scanner(System.in);
-		System.out.println("1. Member Registration");
-		System.out.println("2. Member Information");
-		System.out.println("3. Member Remove");
-		System.out.println("Enter Valid Value:");
+		System.out.println("\n\n\n\t\t\t\t1) Member Registration\n");
+		System.out.println("\t\t\t\t2) Member Information\n");
+		System.out.println("\t\t\t\t3) Member Remove\n");
+		System.out.println("\t\t\t\t4) Go Back\n");
+		System.out.print("\n\t\tEnter your choice : ");
 		int input = in.nextInt();
 		if(input == 1)
 		{
@@ -182,37 +180,43 @@ public class Member {
 		}
 		else if(input == 2)
 		{
-			System.out.println("Enter Member Id :");
+			System.out.print("\n\n\t\tEnter Member ID :");
 			String memberId = in.next();
 			MemberInfo memberInfo = new MemberInfo();
 			Member member = memberInfo.viewMember(memberId);
 			if(member.getAddress() == null)
 			{
-				System.out.println("Member Details not Found");
+				System.out.println("\n\t\t\t\t!!!!! Member Details not Found !!!!!\n");
 			}
 			else
 			{
-				System.out.println("Member Id :" + member.getMemberId());
-				System.out.println("Member Name : " + member.getMemberName());
-				System.out.println("Member Address : " + member.getAddress());
-				System.out.println("Member Contact : "+ member.getMobileNum());
-				System.out.println("Member Proof type : "+ member.getProofType());
-				System.out.println("Member Proof ID : "+ member.getProofId());
-				System.out.println("Member Due Amount : " + member.getDueAmt());
+				System.out.println("\n\t\t\t\tMember ID :" + member.getMemberId());
+				System.out.println("\t\t\t\tMember Name : " + member.getMemberName());
+				System.out.println("\t\t\t\tMember Address : " + member.getAddress());
+				System.out.println("\t\t\t\tMember Contact : "+ member.getMobileNum());
+				System.out.println("\t\t\t\tMember Proof type : "+ member.getProofType());
+				System.out.println("\t\t\t\tMember Proof ID : "+ member.getProofId());
+				System.out.println("\t\t\t\tMember Due Amount : " + member.getDueAmt());
 				
 			}
 		}
 		else if(input == 3)
 		{
-			System.out.println("Enter Member Id :");
+			System.out.println("\n\n\n\n\t\t\t\tDelete Member");
+			System.out.println("\t\t\t\t-------------\n");
+			System.out.print("\t\tEnter Member Id : ");
 			String memberId = in.next();
 			MemberDelete memberDelete = new MemberDelete();
 			String result = memberDelete.deleteMember(memberId);
 			System.out.println(result);
 		}
+		else if(input == 4) {
+			//do nothing just goes back to dashboard
+		}
 		else
 		{
-			System.out.println("Invalid Value");
+			System.out.println("\t\t\t\tInvalid Value");
 		}
+		
 	}
 }

@@ -5,20 +5,18 @@ package com.project.lms;
 
 import java.util.*;
 import java.sql.PreparedStatement;
-/**
- * @author kisho
- *
- */
+
 public class Payment {
 	Scanner in = new Scanner(System.in);
-	conn con = new conn();
+	
 	
 	public void start() {					//for default payment options if abruptly when a member wants to pay due amt..i mean checks for due amt
-		System.out.print("\t\t\t\tEnter the customer ID :");
+		System.out.print("\t\t\t\tEnter the Member ID :");
 		String membrid = in.nextLine();
 		int due_amt,success;
 		
 		try {
+			conn con = new conn();
 			String sql = "Select * from member where member_id = ?";
 			PreparedStatement st = con.c.prepareStatement(sql);
 			st.setString(1, membrid);
@@ -32,10 +30,11 @@ public class Payment {
 					due_amt = rs.getInt("due_amt"); 
 					success = make_payment(membrid,due_amt);
 					if(success==1) {
-						System.out.println("Payment Success");
+						System.out.println("\t\t\t\tPayment Success");
 					}
 				}
 			}
+			con.c.close();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -50,6 +49,7 @@ public class Payment {
 			/*
 			 * below code is used to update in payment table
 			 */
+			conn con = new conn();
 			sql2 = "insert into payment(member_id, amount, date, time, status) values(?,?,?,?,?)";
 			PreparedStatement st2 = con.c.prepareStatement(sql2);										//used Statement instead of Prepared statement
 			st2.setString(1, membrid);
@@ -57,19 +57,19 @@ public class Payment {
 			paid = in.nextInt();
 			if(paid < dueamt) {											// if member paid less than due amt
 				balanceamt = dueamt - paid;
-				System.out.println("Due Amount : "+balanceamt);
+				System.out.println("\t\t\t\tDue Amount : "+balanceamt);
 				st2.setInt(2, paid);
 			}
 			else {														//member paid more than due amount
 				balanceamt = paid - dueamt;
-				System.out.println("Extra Amount : "+balanceamt);
-				System.out.println("Do you wish to contribute some fund for the library");
-				System.out.println("1) Yes! with Pleasure");
-				System.out.println("2) No not this time");
+				System.out.println("\t\t\t\tExtra Amount : "+balanceamt);
+				System.out.println("\n\t\t\t\tDo you wish to contribute some fund for the library");
+				System.out.println("\t\t\t\t1) Yes! with Pleasure");
+				System.out.println("\t\t\t\t2) No not this time");
 				choice = in.nextInt();
 				if(choice==2) {											// if member denies to pay for funds
 					st2.setInt(2, dueamt);
-					System.out.println("Here is your balance amount : "+balanceamt);
+					System.out.println("\t\t\t\tHere is your balance amount : "+balanceamt);
 				}
 				if(choice ==1) {											// if the member agrees to pay for funds
 					st2.setInt(2, (balanceamt+dueamt));										// stores transaction amount with xtra tip amount
@@ -107,7 +107,7 @@ public class Payment {
 			st5.setString(2, membrid);
 			st5.executeUpdate();
 			
-			
+			con.c.close();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
